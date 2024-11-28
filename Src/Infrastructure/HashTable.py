@@ -39,7 +39,7 @@ class HashTable:
         return None #otherwise nothing matches key, therefore, return not found
 
     #DELETE
-    def DELETE(self, key):
+    def Delete(self, key):
         bucket = hash(key) % len(self.hashTable)
         bucket_list = self.hashTable[bucket]
  
@@ -47,4 +47,10 @@ class HashTable:
         for kv in bucket_list:
           if kv[0] == key:
               bucket_list.remove([kv[0],kv[1]]) #remove key and value
+
+    #helper method to print contents
+    def printContents(self):
+        for bucket in self.hashTable:
+            for key, value in bucket:
+                print(f"Key: {key}, Value: {value}")
  

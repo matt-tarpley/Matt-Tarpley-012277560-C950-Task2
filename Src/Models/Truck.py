@@ -7,14 +7,14 @@ MAX_CAPACITY = 16
 AVG_SPEED = 18
 
 class Truck:
-    def __init__(self, packages = None, milesDriven = 0.0, currentLocation = None, currentTime = None, departFromHubTime = None):
+    def __init__(self, packages = None, milesDriven = 0.0, currentLocation = None, currentTime = None, departTime = None):
         self.maxCapacity = MAX_CAPACITY
         self.avgSpeed = AVG_SPEED
         self.packages = packages
         self.milesDriven = milesDriven
         self.currentLocation = currentLocation
         self.currentTime = currentTime
-        self.departFromHubTime = departFromHubTime
+        self.departTime = departTime
 
     ##load packages onto truck and set status via package status enum
     def loadPackages(self, packageNumbers, hashTable):
