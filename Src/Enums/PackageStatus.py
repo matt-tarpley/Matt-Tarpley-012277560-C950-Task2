@@ -8,7 +8,3 @@ class PackageStatus(Enum):
     IN_TRANSIT = 'In Transit'
     DELIVERED = 'Delivered'
     FAILED = 'Failed'
-
-
-for season in (PackageStatus):
-    print(season.value,"-",season)
