@@ -9,13 +9,13 @@ class HashTable:
         # initialize the hash table with empty bucket list entries.
         self.length = length
         self.hashTable = []
-        for i in range(self.lengthh):
+        for i in range(self.length):
             self.hashTable.append([])
     
     #insert into hashtable
     def insert(self, id, package):
         key = hash(id) % self.length
-        if[id, package] not in self.hashTable[key]
+        if[id, package] not in self.hashTable[key]:
             self.hashTable[key].append([id,package])
 
     #updates based on id
@@ -36,7 +36,7 @@ class HashTable:
             return None
 
     #remove by id
-    def Delete(self, id):
+    def delete(self, id):
         bucket = hash(id) % len(self.hashTable)
         bucket_list = self.hashTable[bucket]
  
@@ -47,6 +47,8 @@ class HashTable:
 
     #helper method to print contents
     def printContents(self):
-        print(self.hashTable)
+        for bucket in self.hashTable:
+            for key, package in bucket:
+                package.printDetails() 
 
  

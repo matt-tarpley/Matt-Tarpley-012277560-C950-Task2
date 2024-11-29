@@ -4,22 +4,18 @@
 from Enums.PackageStatus import PackageStatus
 
 class Truck:
-    def __init__(self, id = None, details = None, truck = None, status = PackageStatus.AT_HUB, timeLoaded = None, timeDelivered = None):
-        self.id = id
-        self.details = details
-        self.truck = truck
-        self.status = status
-        self.timeLoaded = timeLoaded
-        self.timeDelivered = timeDelivered
+    def __init__(self, packages = None, currentLocation = None, currentTime = None, timeLeftHb = None):
+        self.packages = packages
+        self.currentLocation = currentLocation
+        self.currentTime = currentTime
+        self.timeLeftHub = timeLeftHb
 
         return
     
-    def printDetails(self):
-        print('\n\nid: ',self.id)
-        print('details: ', self.details)
-        print('truck package was loaded on: ', self.truck)
-        print('status: ', self.status.value)
-        print('time loaded on truck: ', self.timeLoaded)
-        print('time package was delivered: ', self.timeDelivered)
-
-        return
+    def loadPackagesOntoTruck(self, packageNums, hashTable):
+        packages = []
+        for i in packageNums:
+            i = int(i)
+            hashTable.lookup(i).status = PackageStatus.IN_TRANSIT
+            packages.append(hashTable.lookup(i))
+        return packages
