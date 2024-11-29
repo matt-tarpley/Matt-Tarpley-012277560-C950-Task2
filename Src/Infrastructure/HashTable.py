@@ -32,8 +32,8 @@ class HashTable:
         for x in self.hashTable[key]:
             if x[0] == id:
                 return x[1]
-                break
-            return None
+
+        return None
 
     #remove by id
     def delete(self, id):

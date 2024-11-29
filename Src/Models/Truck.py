@@ -13,9 +13,10 @@ class Truck:
         return
     
     def loadPackagesOntoTruck(self, packageNums, hashTable):
-        packages = []
+        packagesArray = []
         for i in packageNums:
             i = int(i)
-            hashTable.lookup(i).status = PackageStatus.IN_TRANSIT
-            packages.append(hashTable.lookup(i))
-        return packages
+            package = hashTable.lookup(i)
+            package.status = PackageStatus.IN_TRANSIT
+            packagesArray.append(package)
+            self.packages = packagesArray
