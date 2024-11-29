@@ -4,12 +4,18 @@
 
 #import packages
 import csv
-from datetime import datetime
 from datetime import timedelta
+from datetime import datetime
 from Models.Package import Package
 from Models.Truck import Truck
 from Infrastructure.HashTable import HashTable
 from Enums.PackageStatus import PackageStatus
+
+TRUCK_SPEED = 18/60 #miles per minute
+TODAY = datetime.now()
+START = datetime(TODAY.year, TODAY.month, TODAY.day, 8, 0, 0, 0)
+
+
 
 #retrieve distance, address, and package data
 with open("Data\\distanceCSV.csv") as distanceCSV:
@@ -131,7 +137,7 @@ class Main:
             # The user will be asked to enter a specific time
             user_time = input("Please enter a time to check status of package(s). Use the following format, HH:MM:SS")
             (h, m, s) = user_time.split(":")
-            convert_timedelta = timedelta(hours=int(h), minutes=int(m), seconds=int(s))
+            convert_timedelta = atimedelta(hours=int(h), minutes=int(m), seconds=int(s))
             # The user will be asked if they want to see the status of all packages or only one
             second_input = input("To view the status of an individual package please type 'solo'. For a rundown of all"
                                  " packages please type 'all'.")

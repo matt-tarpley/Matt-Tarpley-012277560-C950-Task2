@@ -7,34 +7,33 @@
 class HashTable:
     def __init__(self, length=20):
         # initialize the hash table with empty bucket list entries.
+        self.length = length
         self.hashTable = []
-        for i in range(length):
+        for i in range(self.lengthh):
             self.hashTable.append([])
     
     #insert into hashtable
-    def insert(self, id, package): # does both insert and update
-        bucket = hash(id) % len(self.hashTable)
-        bucket_list = self.hashTable[bucket]
+    def insert(self, id, package):
+        key = hash(id) % self.length
+        if[id, package] not in self.hashTable[key]
+            self.hashTable[key].append([id,package])
 
-        # update key if it is already in the bucket
-        for kv in bucket_list: 
-            if kv[0] == id:
-                kv[1] = package
-                return True
-
-        # if not, insert the item to the end of the bucket list
-        key_value = [id, package]
-        bucket_list.append(key_value)
-        return True
+    #updates based on id
+    def update(self, id, package):
+        key = hash(id) % self.length
+        for x in self.hashTable[key]:
+            if x[0] == id:
+                x[1] = package
+            return
 
     #lookup by id
     def lookup(self, id):
-        bucket = hash(id) % len(self.hashTable)
-        bucket_list = self.hashTable[bucket]
-        for pair in bucket_list:
-            if id == pair[0]:
-                return pair[1]
-        return None  #if no match return none
+        key = hash(id) % self.length
+        for x in self.hashTable[key]:
+            if x[0] == id:
+                return x[1]
+                break
+            return None
 
     #remove by id
     def Delete(self, id):
@@ -48,7 +47,6 @@ class HashTable:
 
     #helper method to print contents
     def printContents(self):
-        for bucket in self.hashTable:
-            for key, value in bucket:
-                print(f"Key: {key}, Value: {value}")
+        print(self.hashTable)
+
  

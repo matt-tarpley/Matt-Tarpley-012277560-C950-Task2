@@ -4,14 +4,22 @@
 from Enums.PackageStatus import PackageStatus
 
 class Truck:
-    def __init__(self, maxCapacity = 16, avgSpeed = 18, load = None, packages = None, milesDriven = None, address = None, departTime = None):
-        self.maxCapacity = maxCapacity
-        self.avgSpeed = avgSpeed
-        self.load = load
-        self.packages = packages
-        self.milesDriven = milesDriven
-        self.address = address
-        self.departTime = departTime
+    def __init__(self, id = None, details = None, truck = None, status = PackageStatus.AT_HUB, timeLoaded = None, timeDelivered = None):
+        self.id = id
+        self.details = details
+        self.truck = truck
+        self.status = status
+        self.timeLoaded = timeLoaded
+        self.timeDelivered = timeDelivered
 
-    def __str__(self):
-        return (f'max capacity: {self.maxCapacity} avg speed: {self.avgSpeed} load: {self.load} packages: {self.packages} miles driven: {self.milesDriven} address: {self.address} depart time: {self.departTime}')
+        return
+    
+    def printDetails(self):
+        print('\n\nid: ',self.id)
+        print('details: ', self.details)
+        print('truck package was loaded on: ', self.truck)
+        print('status: ', self.status.value)
+        print('time loaded on truck: ', self.timeLoaded)
+        print('time package was delivered: ', self.timeDelivered)
+
+        return
