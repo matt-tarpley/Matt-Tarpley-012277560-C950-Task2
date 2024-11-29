@@ -3,26 +3,15 @@
 
 from Enums.PackageStatus import PackageStatus
 
-MAX_CAPACITY = 16
-AVG_SPEED = 18
-
 class Truck:
-    def __init__(self, packages = None, milesDriven = 0.0, currentLocation = None, currentTime = None, departTime = None):
-        self.maxCapacity = MAX_CAPACITY
-        self.avgSpeed = AVG_SPEED
+    def __init__(self, maxCapacity = 16, avgSpeed = 18, load = None, packages = None, milesDriven = None, address = None, departTime = None):
+        self.maxCapacity = maxCapacity
+        self.avgSpeed = avgSpeed
+        self.load = load
         self.packages = packages
         self.milesDriven = milesDriven
-        self.currentLocation = currentLocation
-        self.currentTime = currentTime
+        self.address = address
         self.departTime = departTime
 
-    ##load packages onto truck and set status via package status enum
-    def loadPackages(self, packageNumbers, hashTable):
-        packages = []
-        for i in packageNumbers:
-            i = int(i)
-            package = hashTable.find(i)
-            package.status = PackageStatus.IN_TRANSIT
-            packages.append(package)
-
-        return packages   
+    def __str__(self):
+        return (f'max capacity: {self.maxCapacity} avg speed: {self.avgSpeed} load: {self.load} packages: {self.packages} miles driven: {self.milesDriven} address: {self.address} depart time: {self.departTime}')

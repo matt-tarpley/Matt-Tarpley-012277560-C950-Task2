@@ -11,41 +11,39 @@ class HashTable:
         for i in range(length):
             self.hashTable.append([])
     
-    #INSERT
-    def insert(self, key, item): #  does both insert and update 
-        bucket = hash(key) % len(self.hashTable)
+    #insert into hashtable
+    def insert(self, id, package): # does both insert and update
+        bucket = hash(id) % len(self.hashTable)
         bucket_list = self.hashTable[bucket]
- 
+
         # update key if it is already in the bucket
-        for kv in bucket_list:
-          if kv[0] == key:
-            kv[1] = item
-            return True
-        
-        # if not, insert the item to the end of the bucket list.
-        key_value = [key, item]
+        for kv in bucket_list: 
+            if kv[0] == id:
+                kv[1] = package
+                return True
+
+        # if not, insert the item to the end of the bucket list
+        key_value = [id, package]
         bucket_list.append(key_value)
         return True
 
-    #LOOKUP
-    def lookup(self, key):
-        bucket = hash(key) % len(self.hashTable)
+    #lookup by id
+    def lookup(self, id):
+        bucket = hash(id) % len(self.hashTable)
         bucket_list = self.hashTable[bucket]
- 
-        # search for the key in the bucket list
-        for kv in bucket_list:
-          if kv[0] == key:
-            return kv[1] # return associated value
-        return None #otherwise nothing matches key, therefore, return not found
+        for pair in bucket_list:
+            if id == pair[0]:
+                return pair[1]
+        return None  #if no match return none
 
-    #DELETE
-    def Delete(self, key):
-        bucket = hash(key) % len(self.hashTable)
+    #remove by id
+    def Delete(self, id):
+        bucket = hash(id) % len(self.hashTable)
         bucket_list = self.hashTable[bucket]
  
         # loop through list checking for key
         for kv in bucket_list:
-          if kv[0] == key:
+          if kv[0] == id:
               bucket_list.remove([kv[0],kv[1]]) #remove key and value
 
     #helper method to print contents
