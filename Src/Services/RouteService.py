@@ -1,10 +1,11 @@
-#RouteService.py contains route optimization functions as well as utility functions necessary to implement deliveries
+#RouteService.py
+#contains route optimization functions, utility functions necessary to implement deliveries, and the delivery implementation
 from Enums.PackageStatus import PackageStatus
 from datetime import timedelta
 
 class RouteService:
 
-    #retunes the distance between two addresses
+    #returns the distance between two addresses
     def getDistanceBetweenAddresses(self, address1, address2, addressList, distancesList):
         if(address1 not in addressList or address2 not in addressList):
             print('unable to locate one or both addresses in the address list provided.')
@@ -12,7 +13,7 @@ class RouteService:
         else:
             i = addressList.index(address1)
             j = addressList.index(address2)
-            if(i > j): #distances list is a two dimmensional array mapped corressponding to each address
+            if(i > j): #distances list is a two dimmensional array with values corressponding to each address
                 return distancesList[i][j]
             else:
                 return distancesList[j][i]
@@ -32,31 +33,31 @@ class RouteService:
         else:
             return None
         
-    #deliver packages using nearest neighbor algorithm 
+    #deliver packages using nearest neighbor approach
     def deliverPackages(self, truck, addressList, distancesList, hashTable):
         TRUCK_SPEED = 18/60 #.3 miles per minute
         needsDelivered = True
         totalDistance = 0.0
 
         while needsDelivered:
-            package = self.getNextClosestPackage(truck, addressList, distancesList, hashTable)
+            package = self.getNextClosestPackage(truck, addressList, distancesList, hashTable) #get the next closest package
             if(package == None):
                 needsDelivered = False
                 break
             else:
+                #deliver package and update package/truck data
                 package.status = PackageStatus.DELIVERED
                 distance = self.getDistanceBetweenAddresses(truck.currentLocation, package.details[0], addressList, distancesList)
                 truck.currentTime += timedelta(minutes = float(distance/TRUCK_SPEED))
 
-                print(f'Truck current time: {truck.currentTime}')
                 package.timeDelivered = truck.currentTime
                 totalDistance += distance
                 truck.currentLocation = package.details[0]
                 hashTable.update(package.id, package)
 
+        #used to determine start time of third truck
         distanceToHub = self.getDistanceBetweenAddresses(truck.currentLocation, addressList[0], addressList, distancesList)
         truck.currentTime += timedelta(minutes = float(distanceToHub/TRUCK_SPEED))
 
-        print(f'Truck final time: {truck.currentTime}')
         return [distanceToHub, totalDistance, truck.currentTime]
 

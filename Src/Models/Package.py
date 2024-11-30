@@ -12,9 +12,9 @@ class Package:
         self.timeDelivered = timeDelivered
 
         return
-    
+    #print all package info
     def printDetails(self):
-        print('\n\nid: ',self.id)
+        print('\nid: ',self.id)
         print('details: ', self.details)
         print('truck package was loaded on: ', self.truck)
         print('status: ', self.status.value)

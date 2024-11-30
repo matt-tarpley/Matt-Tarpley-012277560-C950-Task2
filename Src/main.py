@@ -6,24 +6,21 @@
 import os
 from Services.DataService import DataService
 from Services.RouteService import RouteService
+from Services.UIService import UIService
 from Infrastructure.HashTable import HashTable
-import csv
-from datetime import timedelta
 from datetime import datetime
-from Models.Package import Package
 from Models.Truck import Truck
 from Infrastructure.HashTable import HashTable
-from Enums.PackageStatus import PackageStatus
 from Services.DataService import DataService
 
-
-TRUCK_SPEED = 18/60 #.3 miles per minute
+#initialize start day and time
 TODAY = datetime.now()
 START = datetime(TODAY.year, TODAY.month, TODAY.day, 8, 0, 0, 0)
 
 #initializing services
 dataService = DataService()
 routeService = RouteService()
+ui = UIService()
 table = HashTable()
 
 #get package, distance, and address data from the csv files
@@ -73,7 +70,7 @@ for i in packageList2:
 distanceToHub1, truckATotalDistance, truckAReturnTime = routeService.deliverPackages(truckA, addressData, distanceData, table)
 distanceToHub2, truckBTotalDistance, truckBReturnTime = routeService.deliverPackages(truckB, addressData, distanceData, table)
 
-#after truck A and B begin, intialize truck C
+# intialize truck C based on which truck (Truck A or Truck B) return to the hub first
 if(truckAReturnTime > truckBReturnTime):
     START = truckAReturnTime
     distanceToHub = distanceToHub1
@@ -98,6 +95,29 @@ for i in packageList3:
 
 #deliver truck C packages
 distanceToHub3, truckCTotalDistance, truckCReturnTime = routeService.deliverPackages(truckC, addressData, distanceData, table)
+totalMilesDriven = truckATotalDistance + truckBTotalDistance + truckCTotalDistance
 
+#CLI UI
+print('WGUPS Routing Program')
+print('*' * 20)
 
-table.printContents()
+#program continues unless user exits
+#ui service handles commands appropriately
+while True:
+    command = ui.printMenu()
+    match command:
+                case 'all':
+                    ui.printAllTruckInfo(packageList1, packageList2, packageList3, table)
+                case 'time':
+                    ui.printInfoAtTime(TODAY, table)
+                case 'find':
+                    ui.printPackageInfoById(table)
+                case 'summary':
+                    ui.printSummary(totalMilesDriven, truckAReturnTime, truckBReturnTime, truckCReturnTime)
+                case 'exit':
+                    print('Exiting the program. Thank you!')
+                    break
+                case _:
+                    print('invalid command. Please enter a new one or type \'exit\' to quit the program')
+                    ui.printMenu()
+

@@ -12,6 +12,7 @@ class Truck:
 
         return
     
+    #loads packages onto truck based on a list of package id's
     def loadPackagesOntoTruck(self, packageNums, hashTable):
         packagesArray = []
         for i in packageNums:

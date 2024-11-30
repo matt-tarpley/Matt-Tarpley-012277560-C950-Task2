@@ -1,4 +1,5 @@
-#DataService.py contains all of the data/csv interaction code for the application
+#DataService.py
+#contains all of the data/csv interaction code for the application
 
 import csv
 from Models.Package import Package
