@@ -1,5 +1,9 @@
 #RouteService.py
 #contains route optimization functions, utility functions necessary to implement deliveries, and the delivery implementation
+#citing sources:
+    #c950: Primary Steps Video2of3 by Robert Ferdinand
+    #c950: Primary Steps Video3of3 by Robert Ferdinand
+
 from Enums.PackageStatus import PackageStatus
 from datetime import timedelta
 

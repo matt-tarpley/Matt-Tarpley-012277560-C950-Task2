@@ -2,6 +2,9 @@
 #Student ID: 012277560
 #Project Title: WGUPS Routing Program
 
+#citing source:
+#c950: Primary Steps Video3of3 by Robert Ferdinand
+
 #import packages
 import os
 from Services.DataService import DataService

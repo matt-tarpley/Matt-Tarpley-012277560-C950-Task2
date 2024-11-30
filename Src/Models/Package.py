@@ -1,5 +1,8 @@
 #Package.py
 #Model class for package objects
+#citing source:
+#c950: Primary Steps Video1of3 by Robert Ferdinand
+
 from Enums.PackageStatus import PackageStatus
 
 class Package:
