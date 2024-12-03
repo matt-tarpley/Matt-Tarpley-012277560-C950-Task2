@@ -14,14 +14,27 @@ class Package:
         self.timeLoaded = timeLoaded
         self.timeDelivered = timeDelivered
 
-        return
     #print all package info
     def printDetails(self):
         print('\nid: ',self.id)
-        print('details: ', self.details)
+        print(f'details: [ Address: \'{self.details[0]} {self.details[1]}, {self.details[2]} {self.details[3]}\' Deadline: \'{self.details[4]}\' weight: \'{self.details[5]}\' Notes: \'{self.details[6]}\' ]')
         print('truck package was loaded on: ', self.truck)
         print('status: ', self.status.value)
         print('time loaded on truck: ', self.timeLoaded)
         print('time package was delivered: ', self.timeDelivered)
 
-        return
+    def printNotDeliveredDetails(self):
+        print('\nid: ',self.id)
+        print(f'details: [ Address: \'{self.details[0]} {self.details[1]}, {self.details[2]} {self.details[3]}\' Deadline: \'{self.details[4]}\' weight: \'{self.details[5]}\' Notes: \'{self.details[6]}\' ]')
+        print('truck package was loaded on: ', self.truck)
+        print('status: ', self.status.value)
+        print('time loaded on truck: ', self.timeLoaded)
+        print('ETA: ', self.timeDelivered)
+
+    def printAtHubDetails(self):
+        print('\nid: ',self.id)
+        print(f'details: [ Address: \'{self.details[0]} {self.details[1]}, {self.details[2]} {self.details[3]}\' Deadline: \'{self.details[4]}\' weight: \'{self.details[5]}\' Notes: \'{self.details[6]}\' ]')
+        print('truck package was loaded on: ', self.truck)
+        print('status: ', self.status.value)
+        print('Estimated loading time: ', self.timeLoaded)
+        print('ETA: ', self.timeDelivered)

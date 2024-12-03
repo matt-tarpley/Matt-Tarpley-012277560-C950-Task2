@@ -123,4 +123,3 @@ while True:
                 case _:
                     print('invalid command. Please enter a new one or type \'exit\' to quit the program')
                     ui.printMenu()
-

@@ -40,15 +40,15 @@ class RouteService:
     #deliver packages using nearest neighbor approach
     def deliverPackages(self, truck, addressList, distancesList, hashTable):
         TRUCK_SPEED = 18/60 #.3 miles per minute
-        needsDelivered = True
+        stillHasPackages = True
         totalDistance = 0.0
 
-        while needsDelivered:
+        while stillHasPackages:
             package = self.getNextClosestPackage(truck, addressList, distancesList, hashTable) #get the next closest package
             if(package == None):
-                needsDelivered = False
+                stillHasPackages = False
                 break
-            else:
+            else: 
                 #deliver package and update package/truck data
                 package.status = PackageStatus.DELIVERED
                 distance = self.getDistanceBetweenAddresses(truck.currentLocation, package.details[0], addressList, distancesList)

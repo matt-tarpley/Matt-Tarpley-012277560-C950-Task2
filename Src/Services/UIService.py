@@ -1,5 +1,6 @@
 #UIService.py contains methods to handle UI functionality
 from datetime import datetime
+from Enums.PackageStatus import PackageStatus
 
 class UIService:
     #prints option menu
@@ -40,23 +41,37 @@ class UIService:
 
     #prints truck info at a time specified by the user
     def printInfoAtTime(self, day, hashTable):
-        hrInput = input('Enter hour as an integer \'0-23\': ')
-        hr = int(str.strip(hrInput))
+        #get input time
+        timeInput = input('Enter time in 24-hour format (HH:MM): ')
 
-        minuteInput = input('Enter minutes as an integer \'0-23\': ')
-        minutes = int(str.strip(minuteInput))
+        #simple validation to verify that the user entered a valid time
+        try:
+            hr, minutes = map(int, timeInput.split(':'))
+            if hr < 0 or hr > 23 or minutes < 0 or minutes > 59:
+                print("Invalid time format. Please enter a valid time between '00:00' and '23:59'.")
+                return
+        except ValueError:
+            print("Invalid time format. Please enter a valid time in 'HH:MM' format.")
+            return
 
-        timeEntered = datetime(day.year, day.month, day.day, hr, minutes, 0, 0)
+        # create datetime from user entry
+        timeEntered = datetime(day.year, day.month, day.day, hr, minutes, 0)
+
+        #print according to user entered time
         NUM_PACKAGES = 40
-
         for i in range(1, NUM_PACKAGES+1):
             package = hashTable.lookup(i)
             if(package.timeLoaded > timeEntered):
-                print(f'Package #{package.id} is still at the HUB.')
+                package.status = PackageStatus.AT_HUB
+                package.printAtHubDetails()
+
             elif(timeEntered >= package.timeLoaded and timeEntered < package.timeDelivered):
-                print(f'Package #{package.id} is IN TRANSIT on {package.truck}. ETA: {package.timeDelivered}')
+                package.status = PackageStatus.IN_TRANSIT
+                package.printNotDeliveredDetails()
+
             elif(timeEntered >= package.timeDelivered):
-                print(f'Package #{package.id} was DELIVERED by {package.truck} at {package.timeDelivered}')
+                package.status = PackageStatus.DELIVERED
+                package.printDetails()
 
     #finds package based on user entry and prints package data
     def printPackageInfoById(self, hashTable):
