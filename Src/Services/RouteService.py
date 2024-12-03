@@ -48,7 +48,15 @@ class RouteService:
             if(package == None):
                 stillHasPackages = False
                 break
-            else: 
+            else:
+                # Correct the address for package 9
+                if package.id == 9:
+                    package.details[0] = "410 S State St"
+                    package.details[1] = "Salt Lake City"
+                    package.details[2] = "UT"
+                    package.details[3] = "84111"
+                    package.details[6] = "Incorrect address was corrected"
+
                 #deliver package and update package/truck data
                 package.status = PackageStatus.DELIVERED
                 distance = self.getDistanceBetweenAddresses(truck.currentLocation, package.details[0], addressList, distancesList)
