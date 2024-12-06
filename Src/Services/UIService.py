@@ -61,17 +61,7 @@ class UIService:
         NUM_PACKAGES = 40
         for i in range(1, NUM_PACKAGES+1):
             package = hashTable.lookup(i)
-            if(package.timeLoaded > timeEntered):
-                package.status = PackageStatus.AT_HUB
-                package.printAtHubDetails()
-
-            elif(timeEntered >= package.timeLoaded and timeEntered < package.timeDelivered):
-                package.status = PackageStatus.IN_TRANSIT
-                package.printNotDeliveredDetails()
-
-            elif(timeEntered >= package.timeDelivered):
-                package.status = PackageStatus.DELIVERED
-                package.printDetails()
+            package.printDetailsAtTime(day ,timeEntered)
 
     #finds package based on user entry and prints package data
     def printPackageInfoById(self, hashTable):
